@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.*;
+import models.Champions;
 
 /**
  *
@@ -19,6 +20,13 @@ import javafx.stage.*;
 public class AddRecordStage extends Stage{
     
     Scene scene;
+    Label infoLabel;
+    TextField seasonField;
+    TextField racerField;
+    TextField pointsField;
+    TextField shassisField;
+    TextField engineField;
+    
     
     public void init(){
         
@@ -31,7 +39,7 @@ public class AddRecordStage extends Stage{
         rowSeason.setVgap(10);
         rowSeason.setAlignment(Pos.CENTER);
         Label seasonLabel = new Label("Season: ");
-        TextField seasonField = new TextField();
+        seasonField = new TextField();
         rowSeason.getChildren().addAll(seasonLabel, seasonField);
         root.getChildren().add(rowSeason);
         
@@ -40,7 +48,7 @@ public class AddRecordStage extends Stage{
         rowRacer.setVgap(10);
         rowRacer.setAlignment(Pos.CENTER);
         Label racerLabel = new Label("Racer: ");
-        TextField racerField = new TextField();
+        racerField = new TextField();
         rowRacer.getChildren().addAll(racerLabel, racerField);
         root.getChildren().add(rowRacer);
         
@@ -49,7 +57,7 @@ public class AddRecordStage extends Stage{
         rowPoints.setVgap(10);
         rowPoints.setAlignment(Pos.CENTER);
         Label pointsLabel = new Label("Points: ");
-        TextField pointsField = new TextField();
+        pointsField = new TextField();
         rowPoints.getChildren().addAll(pointsLabel, pointsField);
         root.getChildren().add(rowPoints);
         
@@ -58,8 +66,8 @@ public class AddRecordStage extends Stage{
         rowShassis.setVgap(10);
         rowShassis.setAlignment(Pos.CENTER);
         Label shassisLabel = new Label("Shassis: ");
-        TextField shassysField = new TextField();
-        rowShassis.getChildren().addAll(shassisLabel, shassysField);
+        shassisField = new TextField();
+        rowShassis.getChildren().addAll(shassisLabel, shassisField);
         root.getChildren().add(rowShassis);
         
         FlowPane rowEngine = new FlowPane();
@@ -67,12 +75,26 @@ public class AddRecordStage extends Stage{
         rowEngine.setVgap(10);
         rowEngine.setAlignment(Pos.CENTER);
         Label engineLabel = new Label("Engine: ");
-        TextField engineField = new TextField();
+        engineField = new TextField();
         rowEngine.getChildren().addAll(engineLabel,  engineField);
         root.getChildren().add(rowEngine);
         
-        //вставить кнопки ok и cancel
+        Button add = new Button("Add");
+        add.setOnAction(e ->{
+            if(getTextSeasonField().trim().isEmpty()
+                    || getTextRacerField().trim().isEmpty()
+                    || getTextPointsField().trim().isEmpty()
+                    || getTextShassisField().trim().isEmpty()
+                    || getTextEngineField().trim().isEmpty())
+                {infoLabel.setText("All fields must be filled");}
+            else{
+                infoLabel.setText("Everything ok");
+                Champions.addChampions();}
+        });
+        root.getChildren().add(add);
         
+        root.getChildren().add(infoLabel);
+                
         scene = new Scene(root, 250, 300);
         
         this.setTitle("Add Record");
@@ -80,4 +102,23 @@ public class AddRecordStage extends Stage{
         this.show(); 
     }
     
+    public String getTextSeasonField(){
+        return seasonField.getText();
+    }
+    
+    public String getTextRacerField(){
+        return racerField.getText();
+    }
+    
+    public String getTextPointsField(){
+        return pointsField.getText();
+    }
+    
+    public String getTextShassisField(){
+        return shassisField.getText();
+    }
+    
+    public String getTextEngineField(){
+        return engineField.getText();
+    }  
 }

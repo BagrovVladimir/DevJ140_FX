@@ -10,6 +10,7 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.*;
+import settings.Settings;
 
 /**
  *
@@ -19,10 +20,11 @@ public class ConnectionStage extends Stage{
     
     Scene scene;
     Label infoLabel;
+    GridPane root;
     
     public void init(){
         
-        GridPane root = new GridPane();
+        root = new GridPane();
         root.setHgap(10);
         root.setVgap(10);
         root.setAlignment(Pos.CENTER);
@@ -55,8 +57,15 @@ public class ConnectionStage extends Stage{
         FlowPane row3 = new FlowPane();
         Button signIn = new Button("Sign in");
         signIn.setOnAction(e ->{
-            TableStage tableStage = new TableStage();
-            tableStage.init();
+            Settings settings = new Settings();
+            if(!urlField.getText().equals(settings.getValue(Settings.URL))
+                    || !loginField.getText().equals(settings.getValue(Settings.LOGIN))
+                    || !passwordField.getText().equals(settings.getValue(Settings.PSW)))
+                {infoLabel.setText("Something wrong");}
+            else {infoLabel.setText("Everything ok");
+                TableStage tableStage = new TableStage();
+                tableStage.init();
+            }
            //infoLabel.setText("to be continued");
         });
         row3.getChildren().add(signIn);

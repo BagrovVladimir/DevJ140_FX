@@ -5,32 +5,102 @@
  */
 package models;
 
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import settings.Settings;
+import views.AddRecordStage;
+
 /**
  *
  * @author Владимир
  */
 public class Champions {
     
+    private Integer id;
     private Integer season;
     private String racer;
     private Integer points;
     private String shassis;
     private String engine;
 
-    public Champions(Integer season, String racer, Integer points, String shassis, String engine) {
+    public Champions(Integer id, Integer season, String racer, Integer points, String shassis, String engine) {
+        this.id = id;
         this.season = season;
         this.racer = racer;
         this.points = points;
         this.shassis = shassis;
         this.engine = engine;
     }
-
-    public String getEngine() {
-        return engine;
+    
+    public static ObservableList<Champions> getChampionsList(){
+        List<Champions> list = new ArrayList<>();
+        Settings settings = new Settings();
+        
+        try (Connection connection = DriverManager.getConnection(
+                    settings.getValue(Settings.URL),
+                    settings.getValue(Settings.LOGIN),
+                    settings.getValue(Settings.PSW));){
+            Statement stm = connection.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT * FROM Personal_championships");
+            Champions champion = null;
+            while (rs.next()) {
+                champion = new Champions(
+                        rs.getInt(1), 
+                        rs.getInt(2), 
+                        rs.getString(3), 
+                        rs.getInt(4), 
+                        rs.getString(5), 
+                        rs.getString(6));
+                list.add(champion);   
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Champions.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return FXCollections.observableArrayList(list);
+    }
+    
+    public static void addChampions(){
+    
+        Settings settings = new Settings();
+        
+        try (Connection connection = DriverManager.getConnection(
+                    settings.getValue(Settings.URL),
+                    settings.getValue(Settings.LOGIN),
+                    settings.getValue(Settings.PSW));){
+            AddRecordStage addRecordStage = new AddRecordStage();
+            Statement stm = connection.createStatement();
+            String sql = "INSERT INTO Personal_championships "
+                    + "(season, racer, points, chassis, engine) "
+                    + "VALUES (" + addRecordStage.getTextSeasonField() + ", "
+                    + addRecordStage.getTextRacerField() + ", "
+                    + addRecordStage.getTextPointsField() + ", "
+                    + addRecordStage.getTextShassisField() + ", "
+                    + addRecordStage.getTextEngineField() + ")";
+            stm.executeUpdate(sql);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Champions.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void setEngine(String engine) {
-        this.engine = engine;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getSeason() {
@@ -65,12 +135,16 @@ public class Champions {
         this.shassis = shassis;
     }
 
+    public String getEngine() {
+        return engine;
+    }
+
+    public void setEngine(String engine) {
+        this.engine = engine;
+    }
+
     @Override
     public String toString() {
-        return "Champions{" + "season=" + season + ", racer=" + racer + ", points=" + points + ", shassis=" + shassis + ", engine=" + engine + '}';
-    }
-    
-    
-    
-    
+        return "Champions{" + "id=" + id + ", season=" + season + ", racer=" + racer + ", points=" + points + ", shassis=" + shassis + ", engine=" + engine + '}';
+    }  
 }
