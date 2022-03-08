@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package views;
 
 import javafx.geometry.Pos;
@@ -12,10 +8,7 @@ import javafx.scene.layout.*;
 import javafx.stage.*;
 import settings.Settings;
 
-/**
- *
- * @author Владимир
- */
+
 public class ConnectionStage extends Stage{
     
     Scene scene;
@@ -66,7 +59,6 @@ public class ConnectionStage extends Stage{
                 TableStage tableStage = new TableStage();
                 tableStage.init();
             }
-           //infoLabel.setText("to be continued");
         });
         row3.getChildren().add(signIn);
         row3.setAlignment(Pos.CENTER);

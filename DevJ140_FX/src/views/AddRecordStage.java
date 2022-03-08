@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package views;
 
 import javafx.geometry.Pos;
@@ -13,20 +9,16 @@ import javafx.scene.layout.*;
 import javafx.stage.*;
 import models.Champions;
 
-/**
- *
- * @author Владимир
- */
+
 public class AddRecordStage extends Stage{
     
     Scene scene;
     Label infoLabel;
-    TextField seasonField;
-    TextField racerField;
-    TextField pointsField;
-    TextField shassisField;
-    TextField engineField;
-    
+    public static TextField seasonField;
+    public static TextField racerField;
+    public static TextField pointsField;
+    public static TextField shassisField;
+    public static TextField engineField;
     
     public void init(){
         
@@ -85,14 +77,16 @@ public class AddRecordStage extends Stage{
                     || getTextRacerField().trim().isEmpty()
                     || getTextPointsField().trim().isEmpty()
                     || getTextShassisField().trim().isEmpty()
-                    || getTextEngineField().trim().isEmpty())
+                    || getTextEngineField().trim().isEmpty() )
                 {infoLabel.setText("All fields must be filled");}
             else{
+                Champions.addChampions();
                 infoLabel.setText("Everything ok");
-                Champions.addChampions();}
+                }
         });
         root.getChildren().add(add);
         
+        infoLabel = new Label();
         root.getChildren().add(infoLabel);
                 
         scene = new Scene(root, 250, 300);
@@ -102,23 +96,23 @@ public class AddRecordStage extends Stage{
         this.show(); 
     }
     
-    public String getTextSeasonField(){
+    public static String getTextSeasonField(){
         return seasonField.getText();
     }
     
-    public String getTextRacerField(){
+    public static String getTextRacerField(){
         return racerField.getText();
     }
     
-    public String getTextPointsField(){
+    public static String getTextPointsField(){
         return pointsField.getText();
     }
     
-    public String getTextShassisField(){
+    public static String getTextShassisField(){
         return shassisField.getText();
     }
     
-    public String getTextEngineField(){
+    public static String getTextEngineField(){
         return engineField.getText();
     }  
 }

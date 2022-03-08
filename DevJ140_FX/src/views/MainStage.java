@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package views;
 
 import javafx.application.Application;
@@ -16,10 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Владимир
- */
+
 public class MainStage extends Application {
     
     @Override
@@ -38,24 +31,12 @@ public class MainStage extends Application {
         start.setOnAction(e ->{
             ConnectionStage connectionStage = new ConnectionStage();
             connectionStage.init();
-            System.out.println("Done");
         });
-        
-        
+           
         vBox.getChildren().addAll(label, start);
         
         Label label1 = new Label("All rights reseved by me :-)");
         root.setBottom(label1);
-        
-//        start.setOnAction(new EventHandler<ActionEvent>() {
-//            
-//            @Override
-//            public void handle(ActionEvent event) {
-//                
-//                System.out.println("Hello World!");
-//                
-//            }
-//        });
         
         Scene scene = new Scene(root, 300, 250);
         
@@ -64,9 +45,6 @@ public class MainStage extends Application {
         primaryStage.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package models;
 
 import java.sql.Statement;
@@ -20,10 +16,7 @@ import javafx.collections.ObservableList;
 import settings.Settings;
 import views.AddRecordStage;
 
-/**
- *
- * @author Владимир
- */
+
 public class Champions {
     
     private Integer id;
@@ -79,15 +72,15 @@ public class Champions {
                     settings.getValue(Settings.URL),
                     settings.getValue(Settings.LOGIN),
                     settings.getValue(Settings.PSW));){
-            AddRecordStage addRecordStage = new AddRecordStage();
             Statement stm = connection.createStatement();
             String sql = "INSERT INTO Personal_championships "
                     + "(season, racer, points, chassis, engine) "
-                    + "VALUES (" + addRecordStage.getTextSeasonField() + ", "
-                    + addRecordStage.getTextRacerField() + ", "
-                    + addRecordStage.getTextPointsField() + ", "
-                    + addRecordStage.getTextShassisField() + ", "
-                    + addRecordStage.getTextEngineField() + ")";
+                    + "VALUES (" + AddRecordStage.getTextSeasonField() + ", '"
+                    + AddRecordStage.getTextRacerField() + "', "
+                    + AddRecordStage.getTextPointsField() + ", '"
+                    + AddRecordStage.getTextShassisField() + "', '"
+                    + AddRecordStage.getTextEngineField() + "')";
+
             stm.executeUpdate(sql);
             
         } catch (SQLException ex) {
