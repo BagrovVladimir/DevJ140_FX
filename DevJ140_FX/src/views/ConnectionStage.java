@@ -38,20 +38,26 @@ public class ConnectionStage extends Stage{
         GridPane row2 = new GridPane();
         row2.setHgap(10);
         row2.setVgap(10);
+        Label urlLabel = new Label("URL: ");
+        row2.add(urlLabel, 0, 0);
+        TextField urlField = new TextField();
+        row2.add(urlField, 1, 0);
         Label loginLabel = new Label("Login: ");
-        row2.add(loginLabel, 0, 0);
+        row2.add(loginLabel, 0, 1);
         TextField loginField = new TextField();
-        row2.add(loginField, 1, 0);
+        row2.add(loginField, 1, 1);
         Label passLabel = new Label("Password: ");
-        row2.add(passLabel, 0, 1);
+        row2.add(passLabel, 0, 2);
         PasswordField passwordField = new PasswordField();
-        row2.add(passwordField, 1, 1);
+        row2.add(passwordField, 1, 2);
         root.add(row2, 0, 1);
         
         FlowPane row3 = new FlowPane();
         Button signIn = new Button("Sign in");
         signIn.setOnAction(e ->{
-           infoLabel.setText("to be continued");
+            TableStage tableStage = new TableStage();
+            tableStage.init();
+           //infoLabel.setText("to be continued");
         });
         row3.getChildren().add(signIn);
         row3.setAlignment(Pos.CENTER);

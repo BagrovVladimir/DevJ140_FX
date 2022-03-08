@@ -5,6 +5,7 @@
  */
 package views;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -49,10 +50,16 @@ public class TableStage extends Stage{
         root.setHgap(10);
         root.setVgap(10);
         root.setAlignment(Pos.CENTER);
-        root.add(root, 0, 0);
+        root.add(tableView, 0, 0);
         
         FlowPane rowButton = new FlowPane();
+        rowButton.setVgap(10);
+        rowButton.setHgap(10);
         Button addRecord = new Button("Add record");
+        addRecord.setOnAction(e ->{
+            AddRecordStage addRecordStage = new AddRecordStage();
+            addRecordStage.init();
+        });
         Button updateTable = new Button("Udate table");
         rowButton.getChildren().addAll(addRecord, updateTable);
         
